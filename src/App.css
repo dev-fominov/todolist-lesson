@@ -6,3 +6,24 @@
 .App > div {
   margin-right: 50px;
 }
+
+input {
+  outline: none;
+}
+.error {
+  border: 2px solid red;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+}
+
+.btn-active {
+  background-color: blue;
+  color: #fff;
+}
+
+.opacity {
+  opacity: 0.5;
+}
