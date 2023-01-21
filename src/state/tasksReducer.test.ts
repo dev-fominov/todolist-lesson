@@ -1,4 +1,4 @@
-import { TasksTodolistsType } from './../App';
+import { TasksTodolistsType } from '../App';
 import { v1 } from 'uuid'
 import { tasksReducer } from './tasksReducer';
 

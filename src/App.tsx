@@ -3,8 +3,8 @@ import './App.css';
 import { TaskType, Todolist, FilterValueType } from './components/Todolist';
 import { v1 } from 'uuid';
 import { Input } from './components/Input';
-import { addTaskAC, addTaskTodolistAC, changeStatusAC, deleteTaskTodolistAC, removeTaskAC, tasksReducer, updateTaskAC } from './reducers/tasksReducer';
-import { addTodolistAC, changeFilterAC, removeTodolistAC, todolistsReducer, updateTodolistAC } from './reducers/todolistsReducer';
+import { addTaskAC, addTaskTodolistAC, changeStatusAC, deleteTaskTodolistAC, removeTaskAC, tasksReducer, updateTaskAC } from './state/tasksReducer';
+import { addTodolistAC, changeFilterAC, removeTodolistAC, todolistsReducer, updateTodolistAC } from './state/todolistsReducer';
 
 export type TodolistsType = {
     id: string

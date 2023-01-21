@@ -1,11 +1,11 @@
-import { ChangeEvent, KeyboardEvent, useState } from "react"
+import { ChangeEvent, KeyboardEvent, memo, useState } from "react"
 import { Button } from "./Button"
 
 type InputType = {
 	callBack: (title: string) => void
 }
 
-export const Input = (props: InputType) => {
+export const Input = memo((props: InputType) => {
 
 	let [inputValue, setInputValue] = useState<string>('')
 	let [error, setError] = useState<string | null>('')
@@ -40,4 +40,4 @@ export const Input = (props: InputType) => {
 			{error && <div className={"error-message"}>{error}</div>}
 		</div>
 	)
-}
+})
