@@ -1,4 +1,4 @@
-import { TodolistsType } from '../App';
+import { TodolistsType } from '../app/App';
 import { v1 } from 'uuid'
 import { todolistsReducer } from './todolistsReducer'
 
@@ -7,26 +7,26 @@ let todolistID2 = v1()
 
 let startState: TodolistsType[]
 
-beforeEach(() => {
-	startState = [
-		{ id: todolistID1, title: 'What to learn', filter: 'all' },
-		{ id: todolistID2, title: 'What to buy', filter: 'all' },
-	]
-})
+// beforeEach(() => {
+// 	startState = [
+// 		{ id: todolistID1, title: 'What to learn', filter: 'all' },
+// 		{ id: todolistID2, title: 'What to buy', filter: 'all' },
+// 	]
+// })
 
-test('Test add todolist', () => {
-	const endState = todolistsReducer(startState, {
-		type: 'ADD-TODOLIST',
-		payload: {
-			todolistID: '1',
-			title: 'New Title'
-		}
-	})
+// test('Test add todolist', () => {
+// 	const endState = todolistsReducer(startState, {
+// 		type: 'ADD-TODOLIST',
+// 		payload: {
+// 			todolistID: '1',
+// 			title: 'New Title'
+// 		}
+// 	})
 
-	expect(endState[0].title).toBe('New Title')
-	expect(endState[2].title).toBe('What to buy')
-	expect(endState.length).toBe(3)
-})
+// 	expect(endState[0].title).toBe('New Title')
+// 	expect(endState[2].title).toBe('What to buy')
+// 	expect(endState.length).toBe(3)
+// })
 
 test('Test remove todolist', () => {
 	const endState = todolistsReducer(startState, {

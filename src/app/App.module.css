@@ -1,0 +1,14 @@
+.content {
+	padding: 30px;
+	margin: 0 -15px;
+}
+
+.todocontent {
+	display: flex;
+}
+
+.menuBox {
+	height: 80px;
+	background-color: blueviolet;
+	width: 100%;
+}

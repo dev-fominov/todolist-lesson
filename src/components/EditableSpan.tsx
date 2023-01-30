@@ -6,6 +6,7 @@ type TitleSpan = {
 }
 
 export const EditableSpan = memo((props: TitleSpan) => {
+
 	let [edit, setEdit] = useState<boolean>(false)
 	let [error, setError] = useState<string | null>('')
 	let [newTitle, setNewTitle] = useState<string>(props.title)
@@ -15,10 +16,11 @@ export const EditableSpan = memo((props: TitleSpan) => {
 		setNewTitle(e.currentTarget.value)
 	}, [])
 
-	const editHandler = useCallback(() => {
+	const editHandler = () => {
 		setEdit(!edit)
 		props.callBack(newTitle)
-	}, [])
+	}
+
 	return (
 		edit
 			? <input value={newTitle} onBlur={editHandler} autoFocus onChange={onChangeHandler} className={error ? 'error' : ''} />
