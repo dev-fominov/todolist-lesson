@@ -7,6 +7,7 @@ import { useAppDispatch } from "../state/store"
 import { getTasksTC } from "../state/tasksReducer"
 import { GetTaskType, TaskStatuses } from "../api/api"
 import s from "./Todolist.module.css"
+import { RequestStatusType } from "../app/appReducer"
 
 export type TitleTodolistType = {
 	title: string
@@ -20,6 +21,7 @@ export type TitleTodolistType = {
 	changeStatus: (todolistID: string, newId: string, checkedValue: boolean) => void
 	updateTask: (todolistID: string, taskID: string, newTitle: string) => void
 	updateTodolist: (todolistID: string, newTitle: string) => void
+	entityStatus: RequestStatusType
 }
 
 export type TaskType = {
@@ -77,10 +79,10 @@ export const Todolist = memo((props: TitleTodolistType) => {
 		<div className={s.container}>
 			<h3>
 				<EditableSpan title={props.title} callBack={updateTodolistHandler} />
-				<Button className={''} name={"x"} callBack={removeTodolistHandler} />
+				<Button className={''} name={"x"} callBack={removeTodolistHandler} disabled={props.entityStatus === 'loading'} />
 			</h3>
 
-			<Input callBack={addTaskHandler} />
+			<Input callBack={addTaskHandler} disabled={props.entityStatus === 'loading'} />
 			<ul>
 				{
 					filteredTasks?.map((task) => {
@@ -94,6 +96,7 @@ export const Todolist = memo((props: TitleTodolistType) => {
 								removeTaskHandler={removeTaskHandler}
 								onChangeCheckedHandler={onChangeCheckedHandler}
 								updateTask={updateTask}
+								disabled={props.entityStatus === 'loading'}
 							/>
 						)
 					})

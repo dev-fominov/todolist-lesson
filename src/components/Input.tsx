@@ -3,6 +3,7 @@ import { Button } from "./Button"
 
 type InputType = {
 	callBack: (title: string) => void
+	disabled?: boolean
 }
 
 export const Input = memo((props: InputType) => {
@@ -32,10 +33,11 @@ export const Input = memo((props: InputType) => {
 		<div>
 			<div>
 				<input value={inputValue}
+					disabled={props.disabled}
 					onChange={onChangeHandler}
 					onKeyDown={onKeyDownHandler}
 					className={error ? 'error' : ''} />
-				<Button className={''} name={"+"} callBack={addTaskHandler} />
+				<Button className={''} name={"+"} callBack={addTaskHandler} disabled={props.disabled} />
 			</div>
 			{error && <div className={"error-message"}>{error}</div>}
 		</div>

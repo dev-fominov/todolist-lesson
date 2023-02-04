@@ -3,6 +3,7 @@ import { memo } from "react"
 type PropsType = {
 	name: string
 	className: string
+	disabled?: boolean
 	callBack: () => void
 }
 
@@ -11,6 +12,9 @@ export const Button = memo((props: PropsType) => {
 		props.callBack()
 	}
 	return (
-		<button className={props.className} onClick={onClickHandler}>{props.name}</button>
+		<button
+			disabled={props.disabled}
+			className={props.className}
+			onClick={onClickHandler}>{props.name}</button>
 	)
 })

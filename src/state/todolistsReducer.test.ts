@@ -1,6 +1,6 @@
-import { TodolistsType } from '../app/App';
 import { v1 } from 'uuid'
 import { todolistsReducer } from './todolistsReducer'
+import { TodolistsType } from '../Todolists/Todolists'
 
 let todolistID1 = v1()
 let todolistID2 = v1()
