@@ -1,47 +1,56 @@
 import { useFormik } from "formik"
 import { Button } from "../components/Button"
 import s from "./Login.module.css"
+import { useAppDispatch, useAppSelector } from "../state/store"
+import { loginTC } from "./auth-reducer"
+import { Navigate } from "react-router-dom"
 
 type FormikErrorType = {
-	Email?: string
-	Password?: string
+	email?: string
+	password?: string
 }
 
 export const Login = () => {
 
+	const dispatch = useAppDispatch()
+	const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+
 	const formik = useFormik({
 		initialValues: {
-			Email: '',
-			Password: '',
+			email: '',
+			password: '',
 			rememberMe: false,
 		},
 		validate: (values) => {
-			
+
 			const errors: FormikErrorType = {};
-			if (!values.Email) {
-				errors.Email = 'Required';
-			} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.Email)) {
-				errors.Email = 'Invalid email address';
+			if (!values.email) {
+				errors.email = 'Required';
+			} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+				errors.email = 'Invalid email address';
 			}
 
-			if (!values.Password) {
-				errors.Password = 'Required';
-			} else if (values.Password.length < 4) {
-				errors.Password = 'От 4 символов';
+			if (!values.password) {
+				errors.password = 'Required';
+			} else if (values.password.length < 4) {
+				errors.password = 'От 4 символов';
 			}
-			
+
 			return errors;
 		},
 		onSubmit: values => {
-			alert(JSON.stringify(values, null, 2))
+			dispatch(loginTC(values))
+			formik.resetForm()
 		}
 	})
 
-	const sendHandler = () => {
+	let keys = Object.keys(formik.errors)
 
+
+	if(isLoggedIn) {
+		return <Navigate to={'/'} />
 	}
 
-	console.log(formik.errors)
 	return (
 		<div>
 			<p>Чтобы войти в систему, пройдите регистрацию
@@ -52,26 +61,23 @@ export const Login = () => {
 			<p>or use common test account credentials:</p>
 			<p>Email: free@samuraijs.com</p>
 			<p>Password: free</p>
-			<form className={s.formBox} action="">
+			<form className={s.formBox} action="" onSubmit={formik.handleSubmit}>
 				<input
 					type="text"
-					name="Email"
-					onChange={formik.handleChange}
-					value={formik.values.Email}
+					{...formik.getFieldProps('email')}
 				/>
+				{formik.touched.email && formik.errors.email && <span style={{ color: 'red' }}>{formik.errors.email}</span>}
 				<input
 					type="password"
-					name="Password"
-					onChange={formik.handleChange}
-					value={formik.values.Password}
+					{...formik.getFieldProps('password')}
 				/>
+				{formik.touched.password && formik.errors.password && <span style={{ color: 'red' }}>{formik.errors.password}</span>}
 				<input
 					type="checkbox"
-					name="rememberMe"
-					onChange={formik.handleChange}
 					checked={formik.values.rememberMe}
+					{...formik.getFieldProps('rememberMe')}
 				/>
-				<Button className={''} key={'1'} name={'Send'} callBack={sendHandler} />
+				<button disabled={!!keys.length} >send</button>
 			</form>
 		</div>
 

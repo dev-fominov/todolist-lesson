@@ -33,9 +33,29 @@ export const todolistAPI = {
 	deleteTask(todolistID: string, taskId: string) {
 		return instance.delete<ResponsType<{ item: GetTaskType }>>(`todo-lists/${todolistID}/tasks/${taskId}`)
 	},
-
 }
 
+export const authAPI = {
+	login(data: LoginType) {
+		return instance.post<ResponsType<{ userId: number }>>(`auth/login`, data)
+	},
+	me() {
+		return instance.get<ResponsType<UserType>>(`auth/me`)
+	}
+}
+
+export type UserType = {
+	id: number,
+	email: string,
+	login: string
+}
+
+export type LoginType = {
+	email: string,
+	password: string,
+	rememberMe: boolean,
+	captcha?: string,
+}
 
 export type GetTodolistType = {
 	id: string

@@ -7,15 +7,18 @@ import { addTodosTC, changeFilterAC, getTodosTC, removeTodoTC, updateTodoTC } fr
 import { addTaskTC, removeTasksTC, updateTaskAC, updateTaskTC } from "../state/tasksReducer"
 import { GetTaskType, GetTodolistType } from '../api/api';
 import { RequestStatusType } from '../app/appReducer';
+import { Navigate } from 'react-router-dom';
 
 export const Todolists = () => {
 
-	useEffect(() => {
-		dispatch(getTodosTC())
-	}, [])
-
 	const todolists = useAppSelector<Array<TodolistsType>>(state => state.todolists)
 	const tasks = useAppSelector<TasksTodolistsType>(state => state.tasks)
+	const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+
+	useEffect(() => {
+		if (!isLoggedIn) return
+		dispatch(getTodosTC())
+	}, [])
 
 	const dispatch = useAppDispatch()
 
@@ -46,6 +49,10 @@ export const Todolists = () => {
 	const updateTask = useCallback((todolistID: string, taskID: string, newTitle: string) => {
 		dispatch(updateTaskAC(todolistID, taskID, newTitle))
 	}, [dispatch])
+
+	if(!isLoggedIn) {
+		return <Navigate to={'/login'} />
+	}
 
 	return (
 		<>
